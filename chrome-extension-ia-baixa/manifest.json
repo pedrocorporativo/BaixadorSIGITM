@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "Baixador V2",
+  "version": "2.0.1",
+  "description": "Automatiza baixas no SIGITM; processa listas pela coluna Seq, um ticket por vez. IA online opcional; regras locais sempre ativas. Correção automática da Certificação após Validation Error e regras prioritárias de código.",
+  "icons": {
+    "16": "icons/sigitm-v2-16.png",
+    "32": "icons/sigitm-v2-32.png",
+    "48": "icons/sigitm-v2-48.png",
+    "128": "icons/sigitm-v2-128.png"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs"
+  ],
+  "host_permissions": [
+    "http://sigitm.redecorp.br/SIGITMWeb/*",
+    "https://sigitm.redecorp.br/SIGITMWeb/*",
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.groq.com/*"
+  ],
+  "background": {
+    "service_worker": "background/background.js"
+  },
+  "action": {
+    "default_title": "Baixador Automático v2",
+    "default_icon": {
+      "16": "icons/sigitm-v2-16.png",
+      "32": "icons/sigitm-v2-32.png",
+      "48": "icons/sigitm-v2-48.png"
+    },
+    "default_popup": "popup/popup.html"
+  },
+  "options_page": "options/options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "http://sigitm.redecorp.br/SIGITMWeb/*",
+        "https://sigitm.redecorp.br/SIGITMWeb/*"
+      ],
+      "js": [
+        "utils/helpers.js",
+        "rules/baixa-rules.js",
+        "rules/validation.js",
+        "automation/navigation.js",
+        "automation/batch-handler.js",
+        "automation/date-handler.js",
+        "automation/form-handler.js",
+        "automation/baixa-handler.js",
+        "ui/notifications.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Baixador Automático v2 · Configurações</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <header class="hero"><div class="hero-inner"><div class="brand-line"><span class="brand-mark"><img src="../assets/sigitm-v2.svg" alt=""></span><span class="version">V2</span></div><span class="eyebrow">PAINEL DO ASSISTENTE SIGITM</span><h1>Baixador Automático</h1><p>Configure a classificação e consulte as execuções salvas neste dispositivo.</p></div></header>
+  <main>
+    <section class="card"><div class="section-title"><div><span class="kicker">01 · CLASSIFICAÇÃO</span><h2>Conexão de IA</h2><p class="section-description">Opcional. As regras locais continuam sendo verificadas antes de qualquer ação.</p></div><span id="keyStatus" class="pill">Chave não salva</span></div>
+      <div class="setup-guide" aria-label="Etapas para conectar a IA">
+        <div class="setup-step"><strong><b>1</b>Crie uma chave</strong>Use o Groq Console ou Google AI Studio. Se uma chave foi revogada, gere uma nova.</div>
+        <div class="setup-step"><strong><b>2</b>Salve com segurança</strong>Selecione o provedor e cole a chave aqui. Não a envie pelo chat nem a coloque no código.</div>
+        <div class="setup-step"><strong><b>3</b>Conecte</strong>Clique em “Salvar e testar IA”. O teste envia somente dados sintéticos.</div>
+      </div>
+      <p class="key-warning">A chave é armazenada apenas no perfil local do navegador. Nunca reutilize uma chave que tenha sido compartilhada ou revogada.</p>
+      <form id="settingsForm">
+        <label>Provedor<select id="provider"><option value="gemini">Google Gemini Developer API</option><option value="groq">Groq Cloud (free tier)</option></select></label>
+        <label>API Key do provedor selecionado<input id="apiKey" type="password" autocomplete="new-password" placeholder="Cole a chave do provedor escolhido"></label>
+        <label class="check-row"><input id="showKey" type="checkbox"> Mostrar enquanto digito</label>
+        <label>Modelo<input id="model" type="text" value="gemini-3.8-flash" spellcheck="false"></label>
+          <p id="providerHelp" class="provider-help"></p>
+        <div class="two-col"><label>Temperatura<input id="temperature" type="number" min="0" max="2" step="0.1" value="0"></label><label>Confiança mínima<input id="confidence" type="number" min="0" max="1" step="0.01" value="0.85"></label></div>
+        <label>Modo de operação<select id="mode"><option value="analysis">Analisar sem preencher</option><option value="automatic">Baixar automaticamente</option></select></label>
+        <aside class="privacy"><strong>Privacidade e limites do provedor</strong><p>Somente Tipo de Abertura, Procedência, Tipo de Incidência, Cliente, Intragov e Serviço Afetado são enviados ao provedor selecionado. Ticket, datas, autenticação e HTML não são enviados. Verifique os termos, retenção, uso de dados e limites gratuitos do provedor antes de enviar informações organizacionais.</p><label class="check-row"><input id="privacyConsent" type="checkbox"> Entendi e autorizo o envio apenas desses campos ao provedor selecionado.</label></aside>
+        <label class="check-row remove-row"><input id="removeKey" type="checkbox"> Remover a chave salva</label>
+        <div class="actions"><button class="save" type="submit">Salvar configurações</button><button id="testApi" class="secondary" type="button">Salvar e testar IA</button><span id="saveStatus" role="status" aria-live="polite"></span></div>
+      </form>
+      <p class="security-note">A chave fica em chrome.storage.local deste perfil do navegador (não sincronizada pelo Chrome), não é criptografada pelo código da extensão. Para publicação/múltiplos usuários, use um backend intermediário com autenticação e gestão de segredos.</p>
+    </section>
+    <section class="card history-card"><div class="section-title"><div><span class="kicker">02 · REGISTROS LOCAIS</span><h2>Histórico de execuções</h2><p class="section-description">Revise os resultados ou exporte uma cópia em CSV.</p></div><div class="history-actions"><button id="exportCsv" class="secondary" type="button">Exportar CSV</button><button id="clearHistory" class="secondary subtle" type="button">Limpar</button></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Data/hora</th><th>Chamado</th><th>Código</th><th>Resultado</th><th>IA</th><th>Confiança</th><th>Motivo/erro</th></tr></thead><tbody id="historyBody"><tr><td colspan="7" class="empty">Nenhuma execução registrada.</td></tr></tbody></table></div>
+    </section>
+  </main>
+  <script src="../utils/helpers.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
