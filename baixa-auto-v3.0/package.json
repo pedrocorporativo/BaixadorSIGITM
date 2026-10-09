@@ -1,0 +1,11 @@
+{
+  "name": "chrome-extension-ia-baixa",
+  "version": "3.1.0",
+  "private": true,
+  "description": "Extensão MV3 independente para análise de baixa SIGITM com IA e regras determinísticas.",
+  "scripts": {
+    "build": "node scripts/build-worker.js",
+    "check": "node scripts/build-worker.js --check",
+    "test": "node scripts/build-worker.js --check && node tests/run-tests.js"
+  }
+}
